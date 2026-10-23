@@ -249,7 +249,7 @@ APIFY_FALLBACK_THRESHOLD=5
 2. Все прокси заблокированы 5 раз подряд → **Apify** (если есть токен)  
 3. В ответе: `scrape_source` (`playwright` / `apify`), `proxy_server`
 
-Actors: `apify/google-search-scraper` · `crawlerbros/yandex-search-scraper` · `zen-studio/yandex-maps-scraper`
+Actors: `apify/google-search-scraper` · `johnvc/Scrape-Yandex` · `zen-studio/yandex-maps-scraper`
 
 ---
 

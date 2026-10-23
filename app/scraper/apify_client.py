@@ -153,20 +153,28 @@ def apify_yandex_serp(query: str, city: str, max_pages: int) -> tuple[str, list[
     items = _run_actor(
         APIFY_YANDEX_ACTOR,
         {
-            "searchQueries": [search_phrase],
-            "yandexDomain": "yandex.ru",
-            "language": "ru",
-            "maxPages": max_pages,
-            "resultsPerPage": 10,
+            "text": search_phrase,
+            "yandex_domain": "yandex.ru",
+            "lang": "ru",
+            "max_pages": max_pages,
+            "groups_on_page": 10,
         },
     )
-    organic = _flatten_organic(items, "organicResults", "organic", "results", "items")
+    # Один элемент датасета на страницу выдачи: ссылки в organic_results, номер страницы в page_number.
+    organic: list[dict[str, Any]] = []
+    for item in items:
+        page_number = item.get("page_number")
+        for row in item.get("organic_results") or []:
+            if isinstance(row, dict):
+                organic.append({**row, "page": page_number})
     results = _map_items(
         organic,
         normalize_url=normalize_yandex_url,
         title_keys=("title", "name"),
         url_keys=("url", "link", "href"),
         snippet_keys=("snippet", "description", "text"),
+        # Сквозная нумерация по всем страницам, как в Playwright-парсере.
+        position_keys=(),
     )
     if not results:
         raise RuntimeError("Apify Yandex actor вернул пустой результат")

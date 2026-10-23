@@ -38,7 +38,7 @@ PROXY_USE_DIRECT = os.getenv("PROXY_USE_DIRECT", "true").strip().lower() in {"1"
 APIFY_API_TOKEN = os.getenv("APIFY_API_TOKEN", "").strip()
 APIFY_FALLBACK_THRESHOLD = int(os.getenv("APIFY_FALLBACK_THRESHOLD", "5"))
 APIFY_GOOGLE_ACTOR = os.getenv("APIFY_GOOGLE_ACTOR", "apify/google-search-scraper").strip()
-APIFY_YANDEX_ACTOR = os.getenv("APIFY_YANDEX_ACTOR", "crawlerbros/yandex-search-scraper").strip()
+APIFY_YANDEX_ACTOR = os.getenv("APIFY_YANDEX_ACTOR", "johnvc/Scrape-Yandex").strip()
 APIFY_YANDEX_MAPS_ACTOR = os.getenv(
     "APIFY_YANDEX_MAPS_ACTOR", "zen-studio/yandex-maps-scraper"
 ).strip()
